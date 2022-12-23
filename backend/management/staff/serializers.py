@@ -34,7 +34,7 @@ class ReceptionistSerializer(ModelSerializer):
         fields="__all__"
         
 
-class ManagerSerializer(ModelSerializer):
+class ManagersSerializer(ModelSerializer):
     class Meta:
         model=Managers
         fields="__all__"

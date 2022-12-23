@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'django_filters',
     'userapi',
     'staff',
+    'patients',
 ]
 
 REST_FRAMEWORK = {
