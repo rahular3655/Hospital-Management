@@ -3,10 +3,13 @@ import './App.css';
 import * as React from 'react';
 import Signin from './Pages/Signin/Signin';
 import { AuthProvider } from './context/AuthContext';
-import AdminHome from './Pages/AdminDashboard';
+import AdminHome from './Pages/Dashboard/AdminDashboard';
+
+
 
 function App() {
   return (
+    
     <div className="App">
       <Router>
         <AuthProvider>
@@ -17,6 +20,7 @@ function App() {
         </AuthProvider>
       </Router>
     </div>
+    
   );
 }
 

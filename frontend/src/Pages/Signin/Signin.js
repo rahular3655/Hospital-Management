@@ -21,10 +21,10 @@ export default function Signin() {
     },
   };
   return (
-    <div className='flex items-center justify-center h-screen bg-purple'>
+    <div className='flex items-center justify-center h-screen bg-fuchsia-900'>
 
       <form onSubmit={handleSubmit(loginUser)}>
-          <div className='bg-purple-300 w-95 p-6 rounded shadow-sm' >
+          <div className='bg-fuchsia-600 w-95 p-6 rounded shadow-sm' >
             <div className='flex items-center justify-center pb-10'>
               <h1 className='text-white text-bold'>Admin LOGIN</h1>
             </div>
