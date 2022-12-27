@@ -16,46 +16,52 @@ class NurseSerializer(ModelSerializer):
         model=Nurse
         fields="__all__"
         
-
-class SecuritySerializer(ModelSerializer):
+class StaffFormsSerializer(ModelSerializer):
     class Meta:
-        model=Security
+        model=StaffForms
         fields="__all__"
         
-        
-class AttendersSerializer(ModelSerializer):
-    class Meta:
-        model=Attenders
-        fields="__all__"
-        
-class ReceptionistSerializer(ModelSerializer):
-    class Meta:
-        model=Receptionist
-        fields="__all__"
         
 
-class ManagersSerializer(ModelSerializer):
-    class Meta:
-        model=Managers
-        fields="__all__"
+# class SecuritySerializer(ModelSerializer):
+#     class Meta:
+#         model=Security
+#         fields="__all__"
         
-class LabassistantSerializer(ModelSerializer):
-    class Meta:
-        model=Labassistant
-        fields="__all__"
+        
+# class AttendersSerializer(ModelSerializer):
+#     class Meta:
+#         model=Attenders
+#         fields="__all__"
+        
+# class ReceptionistSerializer(ModelSerializer):
+#     class Meta:
+#         model=Receptionist
+#         fields="__all__"
         
 
-class HelpersSerializer(ModelSerializer):
-    class Meta:
-        model=Helpers
-        fields="__all__"
+# class ManagersSerializer(ModelSerializer):
+#     class Meta:
+#         model=Managers
+#         fields="__all__"
         
-class OthersSerializer(ModelSerializer):
-    class Meta:
-        model=Others
-        fields="__all__"
+# class LabassistantSerializer(ModelSerializer):
+#     class Meta:
+#         model=Labassistant
+#         fields="__all__"
+        
 
-class StaffSerializer(ModelSerializer):
-    class Meta:
-        model=Staff
-        fields="__all__"
+# class HelpersSerializer(ModelSerializer):
+#     class Meta:
+#         model=Helpers
+#         fields="__all__"
+        
+# class OthersSerializer(ModelSerializer):
+#     class Meta:
+#         model=Others
+#         fields="__all__"
+
+# class StaffSerializer(ModelSerializer):
+#     class Meta:
+#         model=Staff
+#         fields="__all__"
