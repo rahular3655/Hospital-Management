@@ -9,6 +9,8 @@ from rest_framework import status
 from rest_framework import generics
 from rest_framework import mixins
 from rest_framework.permissions import *
+from staff.models import *
+from infrastructure.models import *
 
 # Create your views here.
 
@@ -20,7 +22,8 @@ class PatientCreate(generics.CreateAPIView):
     
     
 class PatientList(generics.ListAPIView):
-    queryset=Doctor.objects.all()
+    queryset=Patients.objects.all()
+    permission_classes=(IsAuthenticated,)
     serializer_class=PatientSerializer
     
 
@@ -33,6 +36,29 @@ class MedicalCondition(generics.CreateAPIView):
     
 class AssignPatientToDoctor(APIView):
     permission_classes = [IsAuthenticated]
-    def post(self,request,id)
+    def post(self,request):
+        patid=request.data["patid"]
+        docid=request.data["docid"]
+        doc=Doctor.objects.get(id=docid)
+        pat=Patients.objects.get(id=patid)
+        pat.doctor=doc
+        pat.save()
+        return Response(status=status.HTTP_200_OK)
+    
+    
+class AdmitPatient(APIView):
+    permission_classes=[IsAuthenticated]
+    def post(self,request):
+        patid=request.data["patid"]
+        bedid=request.data["bedid"]
+        patient=Patients.objects.get(id=patid)
+        patient.status="Admitted"
+        patient.alloted=True
+        bed=Bed.objects.get(id=bedid)
+        bed.reserved_by=patient 
+        bed.is_available=False
+        bed.save()
+        patient.save()
+        return Response(status=status.HTTP_200_OK)
     
     
