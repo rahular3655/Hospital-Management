@@ -4,7 +4,7 @@ from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import *
 from rest_framework import status
 from rest_framework import generics
 from rest_framework import mixins
@@ -14,12 +14,31 @@ from rest_framework import mixins
 
 
 #doctor------------------------------------------------------------------------------------------
-class DoctorCreate(generics.CreateAPIView):
-    queryset=Doctor.objects.all()
-    permission_classes = (AllowAny,)
-    serializer_class=DoctorSerializer
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+# class DoctorCreate(APIView):
+    
+#     queryset=Doctor.objects.all()
+#     permission_classes = []
+#     serializer_class=DoctorSerializer
+#     print()
+#     def perform_create(self, serializer):
+#         user = self.request.user
+#         print(self.request.user)
+#         serializer.save(created_by=user)
+
+class DoctorCreate(APIView):
+    def post(self,request,*args,**kwargs):
+        header_value=request.headers.get("Authorization")
+        print(header_value,"header value..........................")
+        new=DoctorSerializer(data=request.data)
+        print(request.data)
+        print(new)
+        if new.is_valid():
+            new.save()
+            return Response(new.data,status=200)
+        else:
+            data=new.errors
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
 
 class DoctorDetail(APIView):
     def get_object(self,id):
@@ -50,6 +69,7 @@ class DoctorDetail(APIView):
 
 class ListDoctor(generics.ListAPIView):
     queryset=Doctor.objects.all()
+    permission_classes=[IsAdminUser]
     serializer_class=DoctorSerializer
           
 #Nurse-----------------------------------------------------------------------------------------------------------
@@ -94,302 +114,7 @@ class ListNurse(generics.ListAPIView):
     serializer_class=NurseSerializer
     
 
-# #attenders--------------------------------------------------------------------------------------------------------
 
-
-# class AttendersCreate(generics.CreateAPIView):
-#     queryset=Attenders.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=AttendersSerializer
-
-# class AttendersDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return Attenders.objects.get(id=id)
-#         except Attenders.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         attenders=self.get_object(id)
-#         serializer=AttendersSerializer(attenders)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         attenders=self.get_object(id)
-#         serializer=AttendersSerializer(attenders,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         attenders=self.get_object(id)
-#         attenders.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListAttenders(generics.ListAPIView):
-#     queryset=Attenders.objects.all()
-#     serializer_class=AttendersSerializer
-    
-    
-# #Security---------------------------------------------------
-
-# class SecurityCreate(generics.CreateAPIView):
-#     queryset=Security.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=SecuritySerializer
-
-# class SecurityDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return Security.objects.get(id=id)
-#         except Security.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         security=self.get_object(id)
-#         serializer=SecuritySerializer(security)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         security=self.get_object(id)
-#         serializer=SecuritySerializer(security,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         security=self.get_object(id)
-#         security.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListSecurity(generics.ListAPIView):
-#     queryset=Attenders.objects.all()
-#     serializer_class=AttendersSerializer
-    
-# #Receptionist--------------------------------------------------------------------------
-
-
-# class ReceptionistCreate(generics.CreateAPIView):
-#     queryset=Receptionist.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=ReceptionistSerializer
-
-# class ReceptionistDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return Receptionist.objects.get(id=id)
-#         except Receptionist.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         receptionist=self.get_object(id)
-#         serializer=ReceptionistSerializer(receptionist)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         receptionist=self.get_object(id)
-#         serializer=ReceptionistSerializer(receptionist,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         receptionist=self.get_object(id)
-#         receptionist.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListReceptionist(generics.ListAPIView):
-#     queryset=Receptionist.objects.all()
-#     serializer_class=ReceptionistSerializer
-    
-    
-# #Managers------------------------------------------------------------------------------------------
-
-
-# class ManagersCreate(generics.CreateAPIView):
-#     queryset=   Managers.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=   ManagersSerializer
-
-# class ManagersDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return  Managers.objects.get(id=id)
-#         except  Managers.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         managers=self.get_object(id)
-#         serializer= ManagersSerializer(managers)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         managers=self.get_object(id)
-#         serializer= ManagersSerializer(managers,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         managers=self.get_object(id)
-#         managers.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListManagers(generics.ListAPIView):
-#     queryset=Managers.objects.all()
-#     serializer_class=ManagersSerializer
-    
-
-# #Labassistant--------------------------------------------------------------------------------
-
-
-# class LabassistantCreate(generics.CreateAPIView):
-#     queryset=   Labassistant.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=   LabassistantSerializer
-
-# class LabassistantDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return  Labassistant.objects.get(id=id)
-#         except  Labassistant.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         labassistant=self.get_object(id)
-#         serializer= LabassistantSerializer(labassistant)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         labassistant=self.get_object(id)
-#         serializer= LabassistantSerializer(labassistant,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         labassistant=self.get_object(id)
-#         labassistant.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListLabassistant(generics.ListAPIView):
-#     queryset=Labassistant.objects.all()
-#     serializer_class=LabassistantSerializer
-    
-    
-# #Helpers-----------------------------------------------------------------------------------------
-
-
-# class HelpersCreate(generics.CreateAPIView):
-#     queryset=   Helpers.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=   HelpersSerializer
-
-# class HelpersDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return  Helpers.objects.get(id=id)
-#         except  Helpers.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         helpers=self.get_object(id)
-#         serializer= HelpersSerializer(helpers)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         helpers=self.get_object(id)
-#         serializer= HelpersSerializer(helpers,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         helpers=self.get_object(id)
-#         helpers.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListHelpers(generics.ListAPIView):
-#     queryset=Helpers.objects.all()
-#     serializer_class=HelpersSerializer
-    
-
-# #Otheremployees--------------------------------------------------------------
-
-
-# class OthersCreate(generics.CreateAPIView):
-#     queryset= Others.objects.all()
-#     permission_classes = (AllowAny,)
-#     serializer_class=   OthersSerializer
-
-# class OthersDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return Others.objects.get(id=id)
-#         except Others.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         others=self.get_object(id)
-#         serializer= OthersSerializer(others)
-#         return Response(serializer.data)
-        
-#     def patch(self,request,id,format=None):
-#         others=self.get_object(id)
-#         serializer= OthersSerializer(others,data=request.data,partial=True)
-#         print(serializer)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-    
-#     def delete(self,request,id,format=None):
-#         others=self.get_object(id)
-#         others.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-
-# class ListOthers(generics.ListAPIView):
-#     queryset=Others.objects.all()
-#     serializer_class=OthersSerializer
-    
-
-
-# #staff-----------------------------------------------------------------------
-
-# class StaffDetail(APIView):
-#     def get_object(self,id):
-#         try:
-#             return Staff.objects.get(id=id)
-#         except Staff.DoesNotExist:
-#             raise status.HTTP_404_NOT_FOUND
-    
-#     def get (self,request,id,format=None):
-#         staffs=self.get_object(id)
-#         serializer= StaffSerializer(staffs)
-#         return Response(serializer.data)
-
-# class ListStaff(generics.ListAPIView):
-#     queryset=Staff.objects.all()
-#     serializer_class=StaffSerializer
     
     
 #staffform-------------------------------------------------

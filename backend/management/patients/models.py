@@ -22,6 +22,7 @@ class Patients(models.Model):
     medical_condition=models.CharField(max_length=1000)
     time=models.DateField(auto_now_add=True)
     doctor=models.ForeignKey(Doctor,on_delete=models.CASCADE,null=True,default="OP")
+    alloted = models.BooleanField(default=False)
     
     def __str__(self):
         return self.name

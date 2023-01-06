@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'userapi',
     'staff',
     'patients',
+    'infrastructure',
 ]
 
 REST_FRAMEWORK = {
