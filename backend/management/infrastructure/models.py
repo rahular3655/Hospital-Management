@@ -27,3 +27,14 @@ class Bed (models.Model):
     is_available=models.BooleanField(default=True)    
     def __str__(self):
         return self.name
+    
+class Machines(models.Model):
+    STATUS=(('Working','Working'),
+            ('Repair','Repair'),
+            ('Fixed','Fixed'))
+    name=models.CharField(max_length=100,null=True)
+    Floor=models.ManyToManyField(Floors,null=True)
+    Condition=models.CharField(max_length=100,choices=STATUS,null=True)
+    
+    
+    

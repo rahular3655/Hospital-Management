@@ -36,3 +36,14 @@ class BedList(generics.ListAPIView):
     queryset=Bed.objects.all()
     serializer_class=BedSerializer
     permission_classes=(AllowAny,)
+     
+class MachinesCreate(generics.CreateAPIView):
+    queryset=Machines.objects.all()
+    serializer_class=MachinesSerializer
+    permission_classes=(IsAuthenticated,)
+    
+class MachinesList(generics.ListAPIView):
+    queryset=Machines.objects.all()
+    serializer_class=MachinesSerializer
+    permission_classes=(AllowAny,)
+    

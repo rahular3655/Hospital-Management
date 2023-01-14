@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext';
 import Dashboard from './pages/Dashboard';
 import Doctors from './pages/Doctors';
 import Nurse from './pages/Nurse';
+import Patients from './pages/Patients';
 import Signin from './pages/Signin';
 import Staff from './pages/Staff';
 import Users from './pages/Users';
@@ -25,6 +26,7 @@ function App() {
             <Route path='doctor' element={<Doctors/>}/>
             <Route path='nurse' element={<Nurse/>}/>
             <Route path='staff' element={<Staff/>}/>
+            <Route path='patient' element={<Patients/>}/>
            </Route>
           
             

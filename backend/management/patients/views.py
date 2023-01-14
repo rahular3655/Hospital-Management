@@ -23,7 +23,7 @@ class PatientCreate(generics.CreateAPIView):
     
 class PatientList(generics.ListAPIView):
     queryset=Patients.objects.all()
-    permission_classes=(IsAuthenticated,)
+    permission_classes=(AllowAny,)
     serializer_class=PatientSerializer
     
 
@@ -60,5 +60,6 @@ class AdmitPatient(APIView):
         bed.save()
         patient.save()
         return Response(status=status.HTTP_200_OK)
-    
+
+
     
