@@ -8,6 +8,7 @@ from rest_framework.permissions import *
 from rest_framework import status
 from rest_framework import generics
 from rest_framework import mixins
+from django_auto_prefetching import AutoPrefetchViewSetMixin
 # Create your views here.
 
 
@@ -69,7 +70,7 @@ class DoctorDetail(APIView):
 
 class ListDoctor(generics.ListAPIView):
     queryset=Doctor.objects.all()
-    permission_classes=[IsAdminUser]
+    permission_classes=[IsAuthenticated]
     serializer_class=DoctorSerializer
           
 #Nurse-----------------------------------------------------------------------------------------------------------
@@ -82,7 +83,7 @@ class NurseCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
-class NurseDetail(APIView):
+class NurseDetail(AutoPrefetchViewSetMixin,APIView):
     def get_object(self,id):
         try:
             return Nurse.objects.get(id=id)

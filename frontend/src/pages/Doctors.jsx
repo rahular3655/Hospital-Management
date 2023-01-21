@@ -3,31 +3,25 @@ import { DataGrid } from "@mui/x-data-grid";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { TableCell } from '@mui/material';
-import {Button }from "@mui/material";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import { TableCell } from "@mui/material";
+import { Button } from "@mui/material";
 import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
-import Swal from 'sweetalert2';
-
-
-
-
-
+import Swal from "sweetalert2";
 
 export default function Doctors() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [age, setAge] = React.useState('');
-  const [data, setData] = useState([])
-  const {authTokens} = useContext(AuthContext)
-
+  const [age, setAge] = React.useState("");
+  const [data, setData] = useState([]);
+  const { authTokens } = useContext(AuthContext);
 
   const [modalOpen, setModalOpen] = useState(false);
   const [modalOpenn, setModalOpenn] = useState(false);
@@ -46,7 +40,6 @@ export default function Doctors() {
     );
   };
 
-
   const renderCelll = (cellValues) => {
     return (
       <Button
@@ -61,8 +54,6 @@ export default function Doctors() {
     );
   };
 
-  
-
   const handleClick = (event, cellValues) => {
     setModalOpen(true);
   };
@@ -70,42 +61,39 @@ export default function Doctors() {
   const handleClickk = (event, cellValues) => {
     // setModalOpenn(true);
     Swal.fire({
-  title: 'Are you sure?',
-  text: 'You will not be able to recover this imaginary file!',
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'Yes, delete it!',
-  cancelButtonText: 'No, keep it'
-}).then((result) => {
-  if (result.isConfirmed===true) {
-    axios.delete(`http://127.0.0.1:8000/staffs/doctor/${selectionid}/`,{
-    headers:{
-      'Content-Type': 'application/json',
-      "Authorization": `Bearer ${
-          authTokens.access
-      }`
-    }
-  }).then(response=>{
-    const post = response.data;
-    console.log(post);
-  }).catch(error=>{
-    console.log(error);
-  })
-  console.log(selectionid)
-  Swal.fire(
-    'Deleted!',
-    'Your imaginary file has been deleted.',
-    'success'
-    )
-    window.location.reload()
-  } else if (result.dismiss === Swal.DismissReason.cancel) {
-    Swal.fire(
-      'Cancelled',
-      'Your imaginary file is safe',
-      'error'
-    )
-  }
-})
+      title: "Are you sure?",
+      text: "You will not be able to recover this imaginary file!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, keep it",
+    }).then((result) => {
+      if (result.isConfirmed === true) {
+        axios
+          .delete(`http://127.0.0.1:8000/staffs/doctor/${selectionid}/`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authTokens.access}`,
+            },
+          })
+          .then((response) => {
+            const post = response.data;
+            console.log(post);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        console.log(selectionid);
+        Swal.fire(
+          "Deleted!",
+          "Your imaginary file has been deleted.",
+          "success"
+        );
+        window.location.reload();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire("Cancelled", "Your imaginary file is safe", "error");
+      }
+    });
   };
 
   const handleClosee = () => {
@@ -122,7 +110,7 @@ export default function Doctors() {
       headerAlign: "center",
       type: "number",
       width: 90,
-      align:"center"
+      align: "center",
     },
     {
       field: "status",
@@ -130,43 +118,42 @@ export default function Doctors() {
       headerAlign: "center",
       type: "number",
       width: 180,
-      align:"center"
+      align: "center",
     },
     {
       field: "bloodGroup",
       headerName: "Blood Group",
       headerAlign: "center",
       width: 110,
-      align:"center"
+      align: "center",
     },
     {
       field: "phonenumber",
       headerName: "Phonenumber",
       headerAlign: "center",
       width: 150,
-      align:"center"
+      align: "center",
     },
-      {
-        field: "action",
-        headerName: "Action",
-        headerAlign: "center",
-        width: 60,
-        align:"center",
-        flex:1,
-        renderCell:renderCell
-      },
-      {
-        field: "delete",
-        headerName: "Delete",
-        headerAlign: "center",
-        width: 60,
-        align:"center",
-        flex:1,
-        renderCell:renderCelll
-      },
+    {
+      field: "action",
+      headerName: "Action",
+      headerAlign: "center",
+      width: 60,
+      align: "center",
+      flex: 1,
+      renderCell: renderCell,
+    },
+    {
+      field: "delete",
+      headerName: "Delete",
+      headerAlign: "center",
+      width: 60,
+      align: "center",
+      flex: 1,
+      renderCell: renderCelll,
+    },
   ];
-  
-  
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -183,197 +170,187 @@ export default function Doctors() {
     setAge(event.target.value);
   };
 
-  const handleImageChange=(e)=>{
-    setDetails({...details,[e.target.name]:e.target.files[0]})
-  }
+  const handleImageChange = (e) => {
+    setDetails({ ...details, [e.target.name]: e.target.files[0] });
+  };
 
-  const handleImageChangee=(e)=>{
-    setDetails({...detailsupdate,[e.target.name]:e.target.files[0]})
-  }
+  const handleImageChangee = (e) => {
+    setDetails({ ...detailsupdate, [e.target.name]: e.target.files[0] });
+  };
 
   const onHandlechange = (e) => {
-    setDetails({ ...details, [e.target.name]: e.target.value });}
+    setDetails({ ...details, [e.target.name]: e.target.value });
+  };
 
-  const [selectionid,setSelectionid]=useState('')
+  const [selectionid, setSelectionid] = useState("");
 
   const onUpdatechange = (e) => {
     setDetailsupdate({ ...detailsupdate, [e.target.name]: e.target.value });
-  console.log(detailsupdate,"values...................")}
+    console.log(detailsupdate, "values...................");
+  };
 
   useEffect(() => {
-    axios.get("http://127.0.0.1:8000/staffs/doctorlist/",{
+    axios
+      .get("http://127.0.0.1:8000/staffs/doctorlist/", {
         headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${
-                authTokens.access
-            }`
-        }
-    }).then((response) => {
-        setData(response.data)
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+      });
+    console.log(data, "ssssssssssssssssss");
+  }, []);
 
-    })
-    console.log(data, "ssssssssssssssssss")
+  const deletedata = (e, id) => {
+    axios
+      .delete(`http://127.0.0.1:8000/staffs/doctor/${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      })
+      .then((response) => {
+        const post = response.data;
+        console.log(post);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-}, []); 
+  const { admin } = useContext(AuthContext);
 
+  const Swal = require("sweetalert2");
+  const Navigate = useNavigate();
 
-const deletedata = (e,id)=>{
-  axios.delete(`http://127.0.0.1:8000/staffs/doctor/${id}/`,{
-    headers:{
-      'Content-Type': 'application/json',
-      "Authorization": `Bearer ${
-          authTokens.access
-      }`
-    }
-  }).then(response=>{
-    const post = response.data;
-    console.log(post);
-  }).catch(error=>{
-    console.log(error);
-  })
-}
-
-const {admin} = useContext(AuthContext)
-  
-  const Swal = require("sweetalert2")
-  const Navigate=useNavigate()
-
-  console.log(admin.user_id)
-  console.log(authTokens,"tokensssssssssssssss")
+  console.log(admin.user_id);
+  console.log(authTokens, "tokensssssssssssssss");
   const [details, setDetails] = useState({
-    created_by:admin.user_id,
+    created_by: admin.user_id,
     name: "",
     phonenumber: "",
     specialized_in: "",
     bloodGroup: "",
     age: "",
     image: "",
-    status:"",
-    date_of_join:""
+    status: "",
+    date_of_join: "",
   });
 
   // for editing the previous data............................................................................
 
-  const [updatadata, setUpdatedata] = useState([])
+  const [updatadata, setUpdatedata] = useState([]);
   const [detailsupdate, setDetailsupdate] = useState({
-    created_by:admin.user_id,
+    created_by: admin.user_id,
     name: "",
     phonenumber: "",
     specialized_in: "",
     bloodGroup: "",
     age: "",
     image: "",
-    status:"",
-    date_of_join:""
+    status: "",
+    date_of_join: "",
   });
   // console.log(e,detailsupdate)
-  const uploadUpdated =(e,id)=>{
-    console.log(id,"iddddddddddd...............")
-    console.log(detailsupdate,"HEllooo details  ")
+  const uploadUpdated = (e, id) => {
+    console.log(id, "iddddddddddd...............");
+    console.log(detailsupdate, "HEllooo details  ");
     e.preventDefault();
-    const formUpdateSent=new FormData();
-    for (let key in detailsupdate){
-      if (key === "")
-    formUpdateSent.append(key,detailsupdate[key]);
-    console.log(formUpdateSent)
-  }
-
-  axios.patch(`http://127.0.0.1:8000/staffs/doctor/${id}/`,formUpdateSent,{
-    headers: {
-        'Content-Type': 'multipart/form-data',
-        "Authorization": `Bearer ${
-            authTokens.access
-        }`
+    const formUpdateSent = new FormData();
+    for (let key in detailsupdate) {
+      if (key === "") formUpdateSent.append(key, detailsupdate[key]);
+      console.log(formUpdateSent);
     }
-}).then((response)=>{
-  
-    console.log(response.data)
-  setDetailsupdate('')
-  toast.success('Doctor details is updated successfully! ', {
-    position: "top-right",
-    autoClose: 3000,
-    hideProgressBar: true,
-    closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "colored",
-  });
-  if(response.status === 200){
-    Navigate("/adminhome")
+
+    axios
+      .patch(`http://127.0.0.1:8000/staffs/doctor/${id}/`, formUpdateSent, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setDetailsupdate("");
+        toast.success("Doctor details is updated successfully! ", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        if (response.status === 200) {
+          Navigate("/adminhome");
+        }
+      })
+      .catch((error) => {
+        toast.success("Something went wrong !", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      });
   };
-  
-}).catch((error)=>{
-toast.success('Something went wrong !', {
-  position: "top-right",
-  autoClose: 3000,
-  hideProgressBar: true,
-  closeOnClick: true,
-  pauseOnHover: true,
-  draggable: true,
-  progress: undefined,
-  theme: "colored",
-});
 
-})
+  const uploadData = (e) => {
+    e.preventDefault();
+    console.log(details);
+    console.log(details.image);
 
-  }
-
-
-  const uploadData = (e) => {  
-      e.preventDefault();
-      console.log(details)
-    console.log(details.image)
-    
     const formSent = new FormData();
     for (let key in details) {
-        console.log(key in details,"hgfsewawesrdrt")
+      console.log(key in details, "hgfsewawesrdrt");
       formSent.append(key, details[key]);
     }
-    console.log(formSent,"form in..............")
-    
-    axios.post('http://127.0.0.1:8000/staffs/doctorcreate/',formSent,{
+    console.log(formSent, "form in..............");
+
+    axios
+      .post("http://127.0.0.1:8000/staffs/doctorcreate/", formSent, {
         headers: {
-            'Content-Type': 'multipart/form-data',
-            "Authorization": `Bearer ${
-                authTokens.access
-            }`
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setDetails("");
+        toast.success("Doctor details is added successfully! ", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+        if (response.status === 200) {
+          window.location.reload();
         }
-    }).then((response)=>{
-      
-        console.log(response.data)
-      setDetails('')
-      toast.success('Doctor details is added successfully! ', {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
+      })
+      .catch((error) => {
+        toast.success("Something went wrong !", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
       });
-      if(response.status === 200){
-        window.location.reload()
-        props.onClose(handleClose);
-      };
-      
-  }).catch((error)=>{
-    toast.success('Something went wrong !', {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "colored",
-    });
-
-  })
   };
-
-
 
   return (
     <div className=" ml-72 min-h-[800px] bg-slate-300 rounded-md w-[1500px] grid gap-x-6 gap-y-4 grid-cols-1 content-center mt-3">
@@ -395,12 +372,9 @@ toast.success('Something went wrong !', {
             columns={columns}
             pageSize={9}
             rowsPerPageOptions={[5]}
-            onSelectionModelChange={(newSelectionArrayindex)=>{
-              setSelectionid(newSelectionArrayindex[0])
+            onSelectionModelChange={(newSelectionArrayindex) => {
+              setSelectionid(newSelectionArrayindex[0]);
             }}
-           
-            
-            
           />
         </div>
         <Modal
@@ -411,9 +385,11 @@ toast.success('Something went wrong !', {
         >
           <Box sx={style}>
             <form onSubmit={uploadData}>
-                <div className="relative z-0 mb-6 w-full group justify-center">
-                <h2 className="justify-center text-blue-800 font-medium">Add Doctor</h2>
-                </div>
+              <div className="relative z-0 mb-6 w-full group justify-center">
+                <h2 className="justify-center text-blue-800 font-medium">
+                  Add Doctor
+                </h2>
+              </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="text"
@@ -434,7 +410,7 @@ toast.success('Something went wrong !', {
               </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
-                    value={details.specialized_in}
+                  value={details.specialized_in}
                   type="text"
                   onChange={onHandlechange}
                   name="specialized_in"
@@ -452,8 +428,8 @@ toast.success('Something went wrong !', {
               </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
-                value={details.date_of_join}
-                onChange={onHandlechange}
+                  value={details.date_of_join}
+                  onChange={onHandlechange}
                   type="date"
                   name="date_of_join"
                   id="date_of_join"
@@ -471,8 +447,8 @@ toast.success('Something went wrong !', {
               <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative z-0 mb-6 w-full group">
                   <input
-                  value={details.bloodGroup}
-                  onChange={onHandlechange}
+                    value={details.bloodGroup}
+                    onChange={onHandlechange}
                     type="text"
                     name="bloodGroup"
                     id="blood_Group"
@@ -525,32 +501,41 @@ toast.success('Something went wrong !', {
                   </label>
                 </div>
                 <div className="relative z-0 mb-6 w-full group">
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Status
+                    </InputLabel>
                     <Select
-                    name="status"
-                    labelId=""
-                    id=""
-                    value={age}
-                    onChange={onHandlechange}
-                    
-                    label="Status"
+                      name="status"
+                      labelId=""
+                      id=""
+                      value={age}
+                      onChange={onHandlechange}
+                      label="Status"
                     >
-                    <MenuItem value="">
+                      <MenuItem value="">
                         <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="Senior">Senior</MenuItem>
-                    <MenuItem value="Experienced">Experienced</MenuItem>
+                      </MenuItem>
+                      <MenuItem value="Senior">Senior</MenuItem>
+                      <MenuItem value="Experienced">Experienced</MenuItem>
                     </Select>
-                </FormControl>
+                  </FormControl>
                 </div>
                 <div className="relative z-0 mb-6 w-full group">
-                  
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black" htmlFor="large_size">image</label>
-                    <input onChange={handleImageChange} className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" name="image" type="file"/>
-
+                  <label
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                    htmlFor="large_size"
+                  >
+                    image
+                  </label>
+                  <input
+                    onChange={handleImageChange}
+                    className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="large_size"
+                    name="image"
+                    type="file"
+                  />
                 </div>
-                
               </div>
               <button
                 type="submit"
@@ -562,17 +547,16 @@ toast.success('Something went wrong !', {
           </Box>
         </Modal>
 
-
-{/* editform.................................. */}
-
-
+        {/* editform.................................. */}
 
         <Modal open={modalOpen} onClose={handleClosee}>
-        <Box sx={style}>
-        <form >
-                <div className="relative z-0 mb-6 w-full group justify-center">
-                <h2 className="justify-center text-blue-800 font-medium">Add Doctor</h2>
-                </div>
+          <Box sx={style}>
+            <form>
+              <div className="relative z-0 mb-6 w-full group justify-center">
+                <h2 className="justify-center text-blue-800 font-medium">
+                  Add Doctor
+                </h2>
+              </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
                   type="text"
@@ -582,7 +566,6 @@ toast.success('Something went wrong !', {
                   id="name"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=""
-                  
                 />
                 <label
                   htmlFor="name"
@@ -593,14 +576,13 @@ toast.success('Something went wrong !', {
               </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
-                    value={detailsupdate.specialized_in}
+                  value={detailsupdate.specialized_in}
                   type="text"
                   onChange={onUpdatechange}
                   name="specialized_in"
                   id="specialized_in"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
-                  
                 />
                 <label
                   htmlFor="floating_password"
@@ -611,14 +593,13 @@ toast.success('Something went wrong !', {
               </div>
               <div className="relative z-0 mb-6 w-full group">
                 <input
-                value={detailsupdate.date_of_join}
-                onChange={onUpdatechange}
+                  value={detailsupdate.date_of_join}
+                  onChange={onUpdatechange}
                   type="date"
                   name="date_of_join"
                   id="date_of_join"
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=""
-                  
                 />
                 <label
                   htmlFor="floating_repeat_password"
@@ -630,14 +611,13 @@ toast.success('Something went wrong !', {
               <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative z-0 mb-6 w-full group">
                   <input
-                  value={detailsupdate.bloodGroup}
-                  onChange={onUpdatechange}
+                    value={detailsupdate.bloodGroup}
+                    onChange={onUpdatechange}
                     type="text"
                     name="bloodGroup"
                     id="blood_Group"
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=" "
-                    
                   />
                   <label
                     htmlFor="floating_first_name"
@@ -655,7 +635,6 @@ toast.success('Something went wrong !', {
                     id="age"
                     className="block py-2.5 px-0 w-full text-sm  bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
-                    
                   />
                   <label
                     htmlFor="floating_last_name"
@@ -675,7 +654,6 @@ toast.success('Something went wrong !', {
                     value={detailsupdate.phonenumber}
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                     placeholder=""
-                    
                   />
                   <label
                     htmlFor="floating_phone"
@@ -685,44 +663,52 @@ toast.success('Something went wrong !', {
                   </label>
                 </div>
                 <div className="relative z-0 mb-6 w-full group">
-                <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-                    <InputLabel id="demo-simple-select-standard-label">Status</InputLabel>
+                  <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
+                    <InputLabel id="demo-simple-select-standard-label">
+                      Status
+                    </InputLabel>
                     <Select
-                    name="status"
-                    labelId=""
-                    id=""
-                    value={age}
-                    onChange={onUpdatechange}
-                    
-                    label="Status"
+                      name="status"
+                      labelId=""
+                      id=""
+                      value={age}
+                      onChange={onUpdatechange}
+                      label="Status"
                     >
-                    <MenuItem value="">
+                      <MenuItem value="">
                         <em>None</em>
-                    </MenuItem>
-                    <MenuItem value="Senior">Senior</MenuItem>
-                    <MenuItem value="Experienced">Experienced</MenuItem>
+                      </MenuItem>
+                      <MenuItem value="Senior">Senior</MenuItem>
+                      <MenuItem value="Experienced">Experienced</MenuItem>
                     </Select>
-                </FormControl>
+                  </FormControl>
                 </div>
                 <div className="relative z-0 mb-6 w-full group">
-                  
-                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-black" htmlFor="large_size">image</label>
-                    <input onChange={handleImageChangee} className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="large_size" name="image" type="file"/>
-
+                  <label
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-black"
+                    htmlFor="large_size"
+                  >
+                    image
+                  </label>
+                  <input
+                    onChange={handleImageChangee}
+                    className="block w-full text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-black focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                    id="large_size"
+                    name="image"
+                    type="file"
+                  />
                 </div>
-                
               </div>
               <button
-                type="submit" onClick={(e)=>uploadUpdated(e,selectionid)}
-
+                type="submit"
+                onClick={(e) => uploadUpdated(e, selectionid)}
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Submit
               </button>
             </form>
-        </Box>
-      </Modal>
-
+          </Box>
+        </Modal>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from .models import *
 from rest_framework.serializers import ModelSerializer
-
+from rest_framework.exceptions import ValidationError
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -17,6 +17,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         # Add custom claims
         token['username'] = user.username
         token['is_superuser'] = user.is_superuser
+        token['is_staff']=user.is_staff
         return token
     
 

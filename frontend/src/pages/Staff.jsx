@@ -352,7 +352,7 @@ toast.success('Something went wrong !', {
       });
       if(response.status === 200){
         window.location.reload()
-        props.onClose(handleClose);
+        
       };
       
   }).catch((error)=>{

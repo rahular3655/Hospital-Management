@@ -15,8 +15,8 @@ export default function Signin() {
     password: {
       required: "Password is required",
       minLength: {
-        value: 8,
-        message: "Password will have at least 8 characters",
+        value: 6,
+        message: "Password will have at least 6 characters",
       },
     },
   };

@@ -3,7 +3,7 @@ import json
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 from rest_framework import generics
-from rest_framework import mixins
+from rest_framework.views import APIView
 from rest_framework.permissions import *
 from .models import *
 from.serailizers import *
@@ -15,6 +15,10 @@ class blockCreate(generics.CreateAPIView):
     serializer_class=BlockSerializer 
     permission_classes=(AllowAny,)
     
+class BlockList(generics.ListAPIView):
+    queryset=Block.objects.all()
+    serializer_class=BlockSerializer
+    permission_classes=(AllowAny,)
     
 class floorCreate(generics.CreateAPIView):
     queryset=Floors.objects.all()
@@ -47,3 +51,19 @@ class MachinesList(generics.ListAPIView):
     serializer_class=MachinesSerializer
     permission_classes=(AllowAny,)
     
+class countof(APIView):
+    def get(self,request):
+        totalbed=Bed.objects.all().count()
+        availablebed=Bed.objects.filter(is_available=True).count()
+        unavailable=Bed.objects.filter(is_available=False).count()
+        return Response({'totalbed':totalbed,
+                         'availablebed':availablebed,
+                         'unavailablebed':unavailable})
+        
+        
+        
+        
+    
+   
+        
+        

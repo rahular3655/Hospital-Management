@@ -11,6 +11,7 @@ from rest_framework import mixins
 from rest_framework.permissions import *
 from staff.models import *
 from infrastructure.models import *
+from pagination import *
 
 # Create your views here.
 
@@ -18,13 +19,15 @@ from infrastructure.models import *
 class PatientCreate(generics.CreateAPIView):
     queryset=Patients.objects.all()
     permission_classes = (AllowAny,)
-    serializer_class=PatientSerializer
+    serializer_class=PatientCreateSerializer
     
     
 class PatientList(generics.ListAPIView):
     queryset=Patients.objects.all()
     permission_classes=(AllowAny,)
     serializer_class=PatientSerializer
+    pagination_class=PatientPagination
+    
     
 
 class MedicalCondition(generics.CreateAPIView):

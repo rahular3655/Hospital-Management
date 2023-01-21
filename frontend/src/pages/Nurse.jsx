@@ -352,7 +352,6 @@ toast.success('Something went wrong !', {
       });
       if(response.status === 200 || 201){
         window.location.reload()
-        props.onClose(handleClose);
       };
       
   }).catch((error)=>{

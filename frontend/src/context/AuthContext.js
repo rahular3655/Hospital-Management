@@ -45,7 +45,7 @@ export const AuthProvider = ({children}) => {
             localStorage.setItem("authTokens", JSON.stringify(data));
             if(jwt_decode(data.access).is_superuser){
 
-              toast.success('You have successfully aaaaaaaaaaaaaa logged in ! ',{
+              toast.success('You have successfully  logged in ! ',{
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -55,7 +55,6 @@ export const AuthProvider = ({children}) => {
                 progress: undefined,
                 theme: "colored",
               });
-              alert('iyguyg')
               Navigate('/adminhome')
 
             }

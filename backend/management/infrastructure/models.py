@@ -7,7 +7,7 @@ from patients.models import *
 
 class Block (models.Model):
     
-    name=models.CharField(max_length=100,null=True)
+    name=models.CharField(max_length=100,null=True )
     
     def __str__(self):
         return self.name
@@ -15,15 +15,15 @@ class Block (models.Model):
 
 class Floors (models.Model):
     name =models.CharField(max_length=100,null=True)
-    blockname=models.ForeignKey(Block , on_delete=models.CASCADE,null=True)
+    blockname=models.ForeignKey(Block , on_delete=models.CASCADE,null=True ,related_name="floor")
     
     def __str__(self):
         return self.name 
     
 class Bed (models.Model):
     name=models.CharField(max_length=100,null=True)
-    floor = models.ForeignKey(Floors,on_delete=models.CASCADE,null=True)
-    reserved_by=models.ForeignKey(Patients,on_delete=models.CASCADE,null=True)
+    floor = models.ForeignKey(Floors,on_delete=models.CASCADE,null=True ,related_name="bed")
+    reserved_by=models.ForeignKey(Patients,on_delete=models.CASCADE,null=True ,related_name='patientbed')
     is_available=models.BooleanField(default=True)    
     def __str__(self):
         return self.name

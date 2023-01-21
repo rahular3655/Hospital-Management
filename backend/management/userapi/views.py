@@ -11,17 +11,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
 from rest_framework import status
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class MyObtainTokenPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
     serializer_class = MyTokenObtainPairSerializer
     
-    
-    
+
 
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAdminUser,)
     serializer_class = RegisterSerializer
     
     
@@ -30,11 +30,18 @@ class Listuser(generics.ListAPIView):
     serializer_class=UserSerializer
     
 class DeleteUser(APIView):
-    permission_classes=[IsAdminUser]
+    authentication_classes = (JWTAuthentication,)
+    permission_classes = (IsAdminUser,IsAuthenticated)
+
     def delete(self, request, id):
-            snippet = User.objects.all(id=id)
+        user = request.user
+        print(user)
+        if  user.is_superuser:
+            snippet = User.objects.get(id=id)
             snippet.delete()
-            return Response(status=200)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED, data={'error': 'Unauthorized'})
 
 class UpdateUser(APIView):
     def get_object(self,id):

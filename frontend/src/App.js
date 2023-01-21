@@ -1,8 +1,9 @@
-import { BrowserRouter as Router , Routes,Route } from 'react-router-dom';
+import { BrowserRouter as Router , Routes,Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Sidebar from './Components/Sidebar';
 import { AuthProvider } from './context/AuthContext';
+import Beds from './pages/Beds';
 import Dashboard from './pages/Dashboard';
 import Doctors from './pages/Doctors';
 import Nurse from './pages/Nurse';
@@ -20,13 +21,17 @@ function App() {
         <Routes>
           <Route path='/' element={<Signin/>}/>
 
-          <Route path='/adminhome' element={<Sidebar/>}>
-            <Route path='dashboard' element={<Dashboard/>}/>
-            <Route path='user' element={<Users/>}/>
-            <Route path='doctor' element={<Doctors/>}/>
-            <Route path='nurse' element={<Nurse/>}/>
-            <Route path='staff' element={<Staff/>}/>
-            <Route path='patient' element={<Patients/>}/>
+          <Route path='' element={<Sidebar/>}>
+          <Route exact path='/adminhome' element={<Navigate replace to="/adminhome/dashboard"/>} />
+            <Route path='/adminhome/dashboard' element={<Dashboard/>}/>
+            <Route path='/adminhome/user' element={<Users/>}/>
+            <Route path='/adminhome/doctor' element={<Doctors/>}/>
+            <Route path='/adminhome/nurse' element={<Nurse/>}/>
+            <Route path='/adminhome/staff' element={<Staff/>}/>
+            <Route path='/adminhome/patient' element={<Patients/>}/>
+            <Route path='/adminhome/bed' element={<Beds/>}/>
+            
+           
            </Route>
           
             

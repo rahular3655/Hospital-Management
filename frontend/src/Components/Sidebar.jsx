@@ -28,7 +28,7 @@ export default function Sidebar() {
           <ul className="mb-4">
             <li className="mb-2">
               <Link
-                to="dashboard"
+                to="/adminhome/dashboard"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Dashboard
@@ -36,7 +36,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to="user"
+                to="/adminhome/user"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 User
@@ -44,7 +44,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to="doctor"
+                to="/adminhome/doctor"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Doctor
@@ -52,7 +52,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to="patient"
+                to="/adminhome/patient"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Patient
@@ -60,7 +60,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to="nurse"
+                to="/adminhome/nurse"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Nurse
@@ -68,7 +68,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to="staff"
+                to="/adminhome/staff"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Staffs
@@ -76,7 +76,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to=""
+                to="/adminhome/bed"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Beds
@@ -88,6 +88,14 @@ export default function Sidebar() {
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Inventory
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link
+                to=""
+                className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
+              >
+                Accounts
               </Link>
             </li>
           </ul>

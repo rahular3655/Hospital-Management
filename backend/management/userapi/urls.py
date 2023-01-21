@@ -13,6 +13,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='auth_register'),
     path('listuser/', Listuser.as_view(), name='listuser'),
     path('updateuser/<int:id>/', UpdateUser.as_view(), name='updateuser'),
+    path('deleteuser/<int:id>/', DeleteUser.as_view(), name='deleteuser'),
     
     
     
