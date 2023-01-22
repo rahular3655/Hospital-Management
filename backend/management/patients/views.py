@@ -11,7 +11,7 @@ from rest_framework import mixins
 from rest_framework.permissions import *
 from staff.models import *
 from infrastructure.models import *
-from pagination import *
+from .pagination import *
 
 # Create your views here.
 
@@ -20,6 +20,15 @@ class PatientCreate(generics.CreateAPIView):
     queryset=Patients.objects.all()
     permission_classes = (AllowAny,)
     serializer_class=PatientCreateSerializer
+    
+class DeletePatient(APIView):
+    permission_classes = (AllowAny,)
+
+    def delete(self, request, id):
+        patient = Patients.objects.get(id=id)
+        patient.delete()
+        return Response(status=status.HTTP_200_OK)
+        
     
     
 class PatientList(generics.ListAPIView):
