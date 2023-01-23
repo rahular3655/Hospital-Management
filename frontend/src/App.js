@@ -3,9 +3,11 @@ import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Sidebar from './Components/Sidebar';
 import { AuthProvider } from './context/AuthContext';
+import Accounts from './pages/Accounts';
 import Beds from './pages/Beds';
 import Dashboard from './pages/Dashboard';
 import Doctors from './pages/Doctors';
+import Inventory from './pages/Inventory';
 import Nurse from './pages/Nurse';
 import Patients from './pages/Patients';
 import Signin from './pages/Signin';
@@ -30,8 +32,8 @@ function App() {
             <Route path='/adminhome/staff' element={<Staff/>}/>
             <Route path='/adminhome/patient' element={<Patients/>}/>
             <Route path='/adminhome/bed' element={<Beds/>}/>
-            
-           
+            <Route path='/adminhome/inventory' element={<Inventory/>}/>
+            <Route path='/adminhome/accounts' element={<Accounts/>}/>
            </Route>
           
             

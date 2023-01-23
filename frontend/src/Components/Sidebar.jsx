@@ -84,7 +84,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to=""
+                to="/adminhome/inventory"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Inventory
@@ -92,7 +92,7 @@ export default function Sidebar() {
             </li>
             <li className="mb-2">
               <Link
-                to=""
+                to="/adminhome/accounts"
                 className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Accounts

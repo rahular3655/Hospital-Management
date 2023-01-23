@@ -13,7 +13,7 @@ class Patients(models.Model):
     STATUS=(
         ('Diagnosis','Diagnosis'),
         ('Admitted','Admitted'),
-        ('Discharge','Discharge'),
+        ('Discharged','Discharged'),
     )
     
     name=models.CharField(max_length=200)
@@ -26,7 +26,6 @@ class Patients(models.Model):
     doctors=models.ManyToManyField(Doctor,null=True,default="OP")
     alloted = models.BooleanField(default=False)
 
-    
     def __str__(self):
         return self.name
     

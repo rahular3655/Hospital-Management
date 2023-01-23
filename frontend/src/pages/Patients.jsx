@@ -173,8 +173,7 @@ export default function Patients() {
                 <td class="flex gap-2 px-6 py-4">
                     <button className="w-[30px] h-[30px] bg-teal-600 text-white rounded"> Edit</button>
                     <button onClick={()=>deleteFuntion(list.id)} className="w-[50px] h-[30px] align-middle text-white bg-red-500 rounded"> Delete</button>
-                    <button className="w-[120px] h-[30px] text-white rounded bg-yellow-600">Medical Condition</button>
-                    {list.admitted===true ?<button className="w-[120px] h-[30px] text-white rounded bg-gray-600">Discharge</button>:<button className="w-[120px] h-[30px] text-white rounded bg-green-900">Admit</button> }
+                    {/* <button className="w-[120px] h-[30px] text-white rounded bg-yellow-600">Medical Condition</button> */}
                     
                 </td>
             </tr>

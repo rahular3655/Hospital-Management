@@ -12,6 +12,7 @@ from rest_framework.permissions import *
 from staff.models import *
 from infrastructure.models import *
 from .pagination import *
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ class PatientCreate(generics.CreateAPIView):
     serializer_class=PatientCreateSerializer
     
 class DeletePatient(APIView):
+    authentication_classes=(JWTAuthentication,)
     permission_classes = (AllowAny,)
 
     def delete(self, request, id):
