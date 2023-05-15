@@ -61,8 +61,9 @@ class AssignPatientToDoctor(APIView):
     
     
 class AdmitPatient(APIView):
-    permission_classes=[IsAuthenticated]
+    # permission_classes=[IsAuthenticated]
     def post(self,request):
+        print(request.data)
         patid=request.data["patid"]
         bedid=request.data["bedid"]
         patient=Patients.objects.get(id=patid)

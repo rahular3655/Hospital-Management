@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'staff',
     'patients',
     'infrastructure',
+    'doctor'
 ]
 
 REST_FRAMEWORK = {
@@ -119,6 +120,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'management.wsgi.application'
 
+AUTH_USER_MODEL = 'userapi.Account'
+
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -126,7 +129,7 @@ WSGI_APPLICATION = 'management.wsgi.application'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'project2',
+       'NAME': 'testman',
        'USER': 'postgres',
        'PASSWORD': 'rarams3655',
        'PORT': '5432',
@@ -155,6 +158,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
+DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 LANGUAGE_CODE = 'en-us'
 

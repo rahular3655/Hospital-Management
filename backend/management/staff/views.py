@@ -4,6 +4,7 @@ from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
 import json
+from .paginations import *
 from rest_framework.permissions import *
 from rest_framework import status
 from rest_framework import generics
@@ -13,32 +14,11 @@ from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 
 
-
-#doctor------------------------------------------------------------------------------------------
-# class DoctorCreate(APIView):
-    
-#     queryset=Doctor.objects.all()
-#     permission_classes = []
-#     serializer_class=DoctorSerializer
-#     print()
-#     def perform_create(self, serializer):
-#         user = self.request.user
-#         print(self.request.user)
-#         serializer.save(created_by=user)
-
-class DoctorCreate(APIView):
-    def post(self,request,*args,**kwargs):
-        header_value=request.headers.get("Authorization")
-        print(header_value,"header value..........................")
-        new=DoctorSerializer(data=request.data)
-        print(request.data)
-        print(new)
-        if new.is_valid():
-            new.save()
-            return Response(new.data,status=200)
-        else:
-            data=new.errors
-            return Response(status=status.HTTP_404_NOT_FOUND)
+class DoctorCreate(generics.CreateAPIView):
+    queryset=Doctor.objects.all()
+    serializer_class=DoctorSerializer
+    print(serializer_class.data) 
+    permission_classes=(AllowAny,)
         
 
 class DoctorDetail(APIView):
@@ -72,6 +52,12 @@ class ListDoctor(generics.ListAPIView):
     queryset=Doctor.objects.all()
     permission_classes=[IsAuthenticated]
     serializer_class=DoctorSerializer
+          
+class DoctorList(generics.ListAPIView):
+    queryset=Doctor.objects.all()
+    permission_classes=(IsAuthenticated,)
+    serializer_class = DoctorList_Serializer
+    pagination_class = Staff_Pagination
           
 #Nurse-----------------------------------------------------------------------------------------------------------
 

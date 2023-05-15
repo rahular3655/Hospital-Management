@@ -6,7 +6,7 @@ from .models import *
 
 class BedSerializer(ModelSerializer):
     class Meta:
-        model=Bed 
+        model=Bed
         fields= "__all__"
         
 class FloorSerializer(ModelSerializer):
@@ -15,9 +15,20 @@ class FloorSerializer(ModelSerializer):
         model = Floors
         fields = "__all__"
         
+class FloorOptionSerializer(ModelSerializer):
+    label =serializers.CharField(source='name')
+    value=serializers.CharField(source='id')
+    class Meta:
+        model = Floors
+        fields = ['value','label']
 
 class MachinesSerializer(ModelSerializer):
-    floor=FloorSerializer()
+    class Meta:
+        model=Machines
+        fields="__all__"
+        depth=2
+
+class MachineCreateSerializer(ModelSerializer):
     class Meta:
         model=Machines
         fields="__all__"
@@ -28,3 +39,4 @@ class BlockSerializer(ModelSerializer):
     class Meta:
         model=Block
         fields = "__all__"
+        depth=2

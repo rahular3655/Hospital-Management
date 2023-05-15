@@ -24,6 +24,7 @@ export const AuthProvider = ({children}) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            
           },
           body: JSON.stringify({
             username: e.username,
@@ -91,6 +92,7 @@ export const AuthProvider = ({children}) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            
           },
           body: JSON.stringify({ 'refresh': authTokens?.refresh })
         });
@@ -113,13 +115,13 @@ export const AuthProvider = ({children}) => {
         setAuthTokens(null)
         setAdmin(null)
         localStorage.removeItem('authTokens')
-        Navigate('/')
+        // Navigate('/')
     }
 
 
 
     useEffect(()=> {
-
+console.log("auth provider here");
         if(loading){
             updateToken()
         }

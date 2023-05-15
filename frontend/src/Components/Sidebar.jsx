@@ -1,10 +1,17 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import { useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const {logoutAdmin} = useContext(AuthContext)
+  const Navigate = useNavigate ()
+
+  const logout  =()=>{
+    logoutAdmin()
+    Navigate('/')
+  }
   function toggleSidebar() {
     setIsSidebarOpen(!isSidebarOpen);
   }
@@ -29,7 +36,7 @@ export default function Sidebar() {
             <li className="mb-2">
               <Link
                 to="/adminhome/dashboard"
-                className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full  mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
+                className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full text-center mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block"
               >
                 Dashboard
               </Link>
@@ -130,7 +137,7 @@ export default function Sidebar() {
 
 
           
-          <button onClick={logoutAdmin} className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block">Logout</button>
+          <button onClick={()=>logout()} className="bg-gray-200 font-semibold py-2 px-4 rounded-full w-full mb-4 text-fuchsia-600 hover:bg-blue-800 hover:text-white block">Logout</button>
         </div>
         <button className="block md:hidden">
           <svg className="h-6 w-6 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>

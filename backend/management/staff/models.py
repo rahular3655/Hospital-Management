@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from userapi.models import *
 
 # Create your models here.
 
@@ -12,6 +12,7 @@ class Doctor(models.Model):
         ('Senior','Senior'),
         ('Experienced','Experienced'),
     )
+    user=models.ForeignKey(Account,on_delete=models.CASCADE)
     name=models.CharField(max_length=150,null=False)
     date_of_join=models.DateField(auto_now_add=False, null=False)
     specialized_in=models.CharField(max_length=150,null=True)
@@ -20,7 +21,6 @@ class Doctor(models.Model):
     age=models.CharField(max_length=6,null=False)
     status=models.CharField(max_length=100,null=True,choices=STATUS,default="new")
     image=models.ImageField(upload_to='images/Doctors',null=True)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.name
@@ -38,7 +38,7 @@ class Nurse(models.Model):
     age=models.IntegerField(null=False)
     status=models.CharField(max_length=100,null=True,choices=STATUS,default="new")
     image=models.ImageField(upload_to='images/Nurse',null=False)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
     
     
     def __str__(self):
@@ -60,7 +60,7 @@ class StaffForms(models.Model):
     age=models.IntegerField(null=False)
     image=models.ImageField(upload_to='images/staffs',null=False)
     status=models.CharField(max_length=120,null=True,choices=STATUS)
-    created_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(Account, on_delete=models.CASCADE)
 
     
     def __str__(self):

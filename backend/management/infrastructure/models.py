@@ -33,8 +33,8 @@ class Machines(models.Model):
             ('Repair','Repair'),
             ('Fixed','Fixed'))
     name=models.CharField(max_length=100,null=True)
-    Floor=models.ManyToManyField(Floors,null=True)
-    Condition=models.CharField(max_length=100,choices=STATUS,null=True)
-    
+    Floor=models.ForeignKey(Floors,on_delete=models.CASCADE)
+    Condition=models.CharField(max_length=100,choices=STATUS,null=True,default="Working")
+    installed_date= models.DateField(auto_now=True)
     
     

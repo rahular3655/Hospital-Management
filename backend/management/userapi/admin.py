@@ -4,4 +4,4 @@ from .models import *
 
 
 
-admin.site.register(AllUserDetails)
+admin.site.register(Account)

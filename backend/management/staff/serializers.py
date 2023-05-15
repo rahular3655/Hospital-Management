@@ -13,6 +13,12 @@ class DoctorSerializer(ModelSerializer):
         model=Doctor
         fields= "__all__"
         
+class DoctorList_Serializer(ModelSerializer):
+    
+    class Meta:
+        model=Doctor
+        fields=('id','name','specialized_in','image','phonenumber','status')
+        
 class NurseSerializer(ModelSerializer):
     class Meta:
         model=Nurse
