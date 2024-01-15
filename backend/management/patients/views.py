@@ -39,6 +39,12 @@ class PatientList(generics.ListAPIView):
     serializer_class=PatientSerializer
     pagination_class=PatientPagination
     
+class anotherwaylist(APIView):
+    def get(request,id):
+        queryset=Patients.objects.get(id=id)
+        serializer = patientserializer(instance=queryset)
+        serialized_data = serializer.data
+        return Response(serialized_data,)
     
 
 class MedicalCondition(generics.CreateAPIView):

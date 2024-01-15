@@ -23,7 +23,7 @@ class Floors (models.Model):
 class Bed (models.Model):
     name=models.CharField(max_length=100,null=True)
     floor = models.ForeignKey(Floors,on_delete=models.CASCADE,null=True ,related_name="bed")
-    reserved_by=models.ForeignKey(Patients,on_delete=models.CASCADE,null=True ,related_name='patientbed')
+    reserved_by=models.ForeignKey(Patients,on_delete=models.CASCADE,null=True,blank=True, related_name='patientbed')
     is_available=models.BooleanField(default=True)    
     def __str__(self):
         return self.name

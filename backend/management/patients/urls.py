@@ -9,4 +9,6 @@ urlpatterns = [
     path('deletepatient/<int:id>/', DeletePatient.as_view(), name='deletepatient'),
     path('assignpatienttodoc/', AssignPatientToDoctor.as_view(), name='assignpatienttodoc'),
     path('admitpatient/', AdmitPatient.as_view(), name='admitpatient'),
+    path('anotherwaylist/<int:id>', anotherwaylist.as_view(), name='anotherwaylist'),
+    
 ]
