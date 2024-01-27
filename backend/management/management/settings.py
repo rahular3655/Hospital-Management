@@ -76,14 +76,17 @@ INSTALLED_APPS = [
     'staff',
     'patients',
     'infrastructure',
-    'doctor'
+    'doctor',
+    'drf_spectacular'
 ]
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 
@@ -134,6 +137,13 @@ DATABASES = {
    }
 }
 
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Hospital Management API',
+    'DESCRIPTION': 'Hospital Management',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

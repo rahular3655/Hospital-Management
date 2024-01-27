@@ -1,18 +1,14 @@
-from django.shortcuts import render
-from .models import *
 from .serializers import *
-from rest_framework.views import APIView
-from rest_framework.response import Response
-import json
-from rest_framework.permissions import AllowAny
-from rest_framework import status
-from rest_framework import generics
-from rest_framework import mixins
+from rest_framework import status, generics
 from rest_framework.permissions import *
-from staff.models import *
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
 from infrastructure.models import *
 from .pagination import *
-from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializers import *
+
 
 # Create your views here.
 
@@ -67,7 +63,6 @@ class AssignPatientToDoctor(APIView):
     
     
 class AdmitPatient(APIView):
-    # permission_classes=[IsAuthenticated]
     def post(self,request):
         print(request.data)
         patid=request.data["patid"]
