@@ -3,6 +3,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 from staff.serializers import *
 from .serializers import *
+from rest_framework import exceptions
 from infrastructure.serailizers import *
 
 
@@ -38,4 +39,17 @@ class patientserializer(serializers.ModelSerializer):
 class PatientCreateSerializer(ModelSerializer):
     class Meta:
         model = Patients
-        fields = "__all__"
+        fields = "__all__" 
+        
+        
+class AssignPatientToDoctorSerializer(serializers.Serializer):
+    
+    patient = serializers.IntegerField()
+    
+    def validate(self, data):
+        patient =data.get('patient')
+
+        if not Patients.objects.filter(id=patient).exists():
+            raise exceptions.PermissionDenied("Patient not exist,Check for patient profile")
+        
+        
