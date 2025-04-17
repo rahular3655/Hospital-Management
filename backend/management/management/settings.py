@@ -76,7 +76,6 @@ INSTALLED_APPS = [
     'staff',
     'patients',
     'infrastructure',
-    'doctor',
     'drf_spectacular'
 ]
 

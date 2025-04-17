@@ -7,6 +7,7 @@ from sorl.thumbnail import get_thumbnail
 from django.utils.text import slugify
 from common.models import DropDown,BaseImageModel
 from common.utils import random_file_name
+from staff.models import StaffCategory,WorkShift
 
 
 class StatusChoices(models.TextChoices):
@@ -17,17 +18,14 @@ class StatusChoices(models.TextChoices):
     
 class User(LifecycleModelMixin, AbstractUser):
     email = models.EmailField(unique=True)
-    is_email_verified = models.BooleanField(default=False)
+    category = models.ForeignKey(StaffCategory, on_delete=models.SET_NULL, null=True, blank=True,related_name="users")
     change_email = models.EmailField(null=True, blank=True)
     contact_number = PhoneNumberField(null=True, blank=True, unique=True)
     change_contact_number = PhoneNumberField(null=True, blank=True, unique=True)
     is_deleted = models.BooleanField(default=False)
     is_username_updated = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
     slug = models.SlugField(max_length=100, unique=True, blank=False, null=True)
     objects = UserManager()
-
-    # user_objects = UserQuerySet.as_manager()
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.username)
@@ -44,10 +42,6 @@ class User(LifecycleModelMixin, AbstractUser):
     @hook(BEFORE_UPDATE, when='username', has_changed=True, is_not=None)
     def update_is_username_updated(self):
         self.is_username_updated = True
-        
-    @hook(BEFORE_UPDATE, when='contact_number', has_changed=True, is_not=None)
-    def update_is_contact_number_verified(self):
-        self.is_contact_number_verified = True
 
 
 class UserProfile(LifecycleModelMixin, BaseImageModel):
@@ -61,7 +55,14 @@ class UserProfile(LifecycleModelMixin, BaseImageModel):
     gender = models.ForeignKey(DropDown, on_delete=models.CASCADE, blank=True, null=True, related_name="gender",
                                limit_choices_to={'drop_class__slug': 'gender'})
     profile_image = ImageField(upload_to=random_file_name, blank=True, null=True)
-    date_of_birth = models.DateField(null=True, blank=True)
+    slug = models.SlugField(max_length=100, unique=True, blank=False, null=True)
+    date_of_join=models.DateField(auto_now_add=False, null=False)
+    specialized_in=models.CharField(max_length=150,null=True)
+    phonenumber=models.CharField(max_length=15,null=True)
+    blood_group=models.CharField(max_length=5,null=True)
+    age=models.CharField(max_length=6,null=False)
+    shift = models.CharField(max_length=100,blank=True,choices=WorkShift.choices)
+    is_available = models.BooleanField(default=True)
 
     pass
 
