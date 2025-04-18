@@ -72,8 +72,9 @@ INSTALLED_APPS = [
     'rest_framework',
     "corsheaders",
     'django_filters',
-    'userapi',
+    'accounts',
     'staff',
+    'common',
     'patients',
     'infrastructure',
     'drf_spectacular'
@@ -120,7 +121,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'management.wsgi.application'
 
-AUTH_USER_MODEL = 'userapi.Account'
+AUTH_USER_MODEL = "accounts.User"
 
 
 # Database
@@ -129,7 +130,7 @@ AUTH_USER_MODEL = 'userapi.Account'
 DATABASES = {
     'default': {
        'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'testman',
+       'NAME': 'new',
        'USER': 'postgres',
        'PASSWORD': 'rarams3655',
        'PORT': '5432',
@@ -169,9 +170,11 @@ DATE_INPUT_FORMATS = ['%d-%m-%Y']
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 

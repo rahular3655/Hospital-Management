@@ -1,19 +1,10 @@
 from django.db import models
-from userapi.models import *
+from accounts.models import User
 from django.utils.text import slugify
 from treebeard.mp_tree import MP_Node
 
 # Create your models here.
- 
-    
-class WorkShift(models.TextChoices):
-    day = ('day','Day')
-    night = ('night','Night')
-    off = ('off','Off')
-    leave = ('leave','Leave')
-    absent = ('absent','Absent')
- 
-    
+     
 class LeaveApplicationChoices(models.TextChoices):
     waiting = ('waiting','Waiting')
     approved  = ('approved','Approved')
@@ -21,6 +12,7 @@ class LeaveApplicationChoices(models.TextChoices):
  
     
 class StaffCategory(MP_Node):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,related_name="categories")
     name = models.CharField(blank=False,max_length=100,null=True)
     slug = models.SlugField(max_length=100, unique=True, blank=False, null=True)
     is_active = models.BooleanField(default=True)
@@ -63,7 +55,7 @@ class StaffCategory(MP_Node):
     
     
 class LeaveApplication(models.Model):
-    user = models.ForeignKey(Account,on_delete=models.CASCADE,null=True,related_name="leave_application")
+    user = models.ForeignKey(User,on_delete=models.CASCADE,null=True,related_name="leave_application")
     subject = models.TextField(blank=True)
     date_of_leave = models.DateField(blank=False)
     is_medical_leave = models.BooleanField(default=False)

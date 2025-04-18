@@ -7,7 +7,6 @@ from sorl.thumbnail import get_thumbnail
 from django.utils.text import slugify
 from common.models import DropDown,BaseImageModel
 from common.utils import random_file_name
-from staff.models import StaffCategory,WorkShift
 
 
 class StatusChoices(models.TextChoices):
@@ -16,9 +15,16 @@ class StatusChoices(models.TextChoices):
     resolved = ('resolved', 'resolved')
     
     
+class WorkShift(models.TextChoices):
+    day = ('day','Day')
+    night = ('night','Night')
+    off = ('off','Off')
+    leave = ('leave','Leave')
+    absent = ('absent','Absent')
+    
+    
 class User(LifecycleModelMixin, AbstractUser):
     email = models.EmailField(unique=True)
-    category = models.ForeignKey(StaffCategory, on_delete=models.SET_NULL, null=True, blank=True,related_name="users")
     change_email = models.EmailField(null=True, blank=True)
     contact_number = PhoneNumberField(null=True, blank=True, unique=True)
     change_contact_number = PhoneNumberField(null=True, blank=True, unique=True)

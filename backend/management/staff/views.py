@@ -15,7 +15,7 @@ from django_auto_prefetching import AutoPrefetchViewSetMixin
 
 
 class DoctorCreate(generics.CreateAPIView):
-    queryset=Doctor.objects.all()
+    queryset=User.objects.all()
     serializer_class=DoctorSerializer
     print(serializer_class.data) 
     permission_classes=(AllowAny,)
@@ -24,8 +24,8 @@ class DoctorCreate(generics.CreateAPIView):
 class DoctorDetail(APIView):
     def get_object(self,id):
         try:
-            return Doctor.objects.get(id=id)
-        except Doctor.DoesNotExist:
+            return User.objects.get(id=id)
+        except User.DoesNotExist:
             raise status.HTTP_404_NOT_FOUND
     
     def get (self,request,id,format=None):
@@ -49,12 +49,12 @@ class DoctorDetail(APIView):
     
 
 class ListDoctor(generics.ListAPIView):
-    queryset=Doctor.objects.all()
+    queryset=User.objects.all()
     permission_classes=[IsAuthenticated]
     serializer_class=DoctorSerializer
           
 class DoctorList(generics.ListAPIView):
-    queryset=Doctor.objects.all()
+    queryset=User.objects.all()
     permission_classes=(IsAuthenticated,)
     serializer_class = DoctorList_Serializer
     pagination_class = Staff_Pagination
@@ -63,7 +63,7 @@ class DoctorList(generics.ListAPIView):
 
 
 class NurseCreate(generics.CreateAPIView):
-    queryset=Nurse.objects.all()
+    queryset=User.objects.all()
     permission_classes = (AllowAny,)
     serializer_class=NurseSerializer
     def perform_create(self, serializer):
@@ -72,8 +72,8 @@ class NurseCreate(generics.CreateAPIView):
 class NurseDetail(AutoPrefetchViewSetMixin,APIView):
     def get_object(self,id):
         try:
-            return Nurse.objects.get(id=id)
-        except Nurse.DoesNotExist:
+            return User.objects.get(id=id)
+        except User.DoesNotExist:
             raise status.HTTP_404_NOT_FOUND
     
     def get (self,request,id,format=None):
@@ -97,50 +97,8 @@ class NurseDetail(AutoPrefetchViewSetMixin,APIView):
     
 
 class ListNurse(generics.ListAPIView):
-    queryset=Nurse.objects.all()
+    queryset=User.objects.all()
     serializer_class=NurseSerializer
     
 
-
-    
-    
-#staffform-------------------------------------------------
-
-class StaffCreate(generics.CreateAPIView):
-    queryset=StaffForms.objects.all()
-    serializer_class = StaffFormsSerializer
-    permission_classes=(AllowAny,)
-    def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
-    
-class Stafflist(generics.ListAPIView):
-    queryset=StaffForms.objects.all()
-    serializer_class=StaffFormsSerializer
-    
-class StaffDetail(APIView):
-    
-    def get_object(self,id):
-        try:
-            return StaffForms.objects.get(id=id)
-        except StaffForms.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
-        
-    def get(self,request,id,format=None):
-        new=self.get_object(id)
-        serializer=StaffFormsSerializer(new)
-        return Response(serializer.data)
-    
-    def patch(self,request,id,format=None):
-        update=self.get_object(id)
-        serializer=StaffFormsSerializer(update,data=request.data,partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        else :
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
-        
-    def delete(self,request,id,format=None):
-        tbdele=self.get_object(id)
-        tbdele.delete
-        return Response(status=status.HTTP_204_NO_CONTENT)
         

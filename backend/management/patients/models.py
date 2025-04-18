@@ -20,7 +20,7 @@ class Patients(models.Model):
     status= models.CharField(max_length=100,blank=True,choices=STATUS,default="Diagnosis")
     admitted=models.BooleanField(default=False)
     time=models.DateField(auto_now_add=True)
-    doctors=models.ManyToManyField(Doctor,null=True,default="OP",related_name="patients")
+    doctors=models.ManyToManyField(User,default="OP",related_name="patients")
     is_alloted = models.BooleanField(default=False)
 
     def __str__(self):
@@ -39,5 +39,5 @@ class MedicalConditions(models.Model):
 
 class Medications(models.Model):
     patient = models.ForeignKey(Patients,related_name="medicine",on_delete=models.CASCADE)
-    prescribed_by  = models.ForeignKey(Doctor,related_name="medicine",on_delete=models.CASCADE)
+    prescribed_by  = models.ForeignKey(User,related_name="medicine",on_delete=models.CASCADE)
     name_of_medicine = models.TextField(null=True,blank=True)     
