@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from sorl.thumbnail.fields import ImageField
 from sorl.thumbnail import get_thumbnail
 from django.utils.text import slugify
-from common.models import DropDown,BaseImageModel
+from common.models import DropDown,BaseImageModel,BloodGroup
 from common.utils import random_file_name
 
 
@@ -65,7 +65,7 @@ class UserProfile(LifecycleModelMixin, BaseImageModel):
     date_of_join=models.DateField(auto_now_add=False, null=False)
     specialized_in=models.CharField(max_length=150,null=True)
     phonenumber=models.CharField(max_length=15,null=True)
-    blood_group=models.CharField(max_length=5,null=True)
+    blood_group = models.ForeignKey(BloodGroup, on_delete=models.SET_NULL, blank=True, null=True, related_name='user_profiles')
     age=models.CharField(max_length=6,null=False)
     shift = models.CharField(max_length=100,blank=True,choices=WorkShift.choices)
     is_available = models.BooleanField(default=True)

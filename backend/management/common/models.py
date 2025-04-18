@@ -60,3 +60,14 @@ class DropDown(models.Model):
     def __str__(self):
         return self.value
     
+class Role(models.Model):
+    name = models.CharField(max_length=100, unique=True)  # Ensure role names are unique
+
+    def __str__(self):
+        return self.name
+    
+class BloodGroup(models.Model):
+    name = models.CharField(max_length=3, unique=True)  # e.g., 'A+', 'B-', 'AB+', 'O-'
+
+    def __str__(self):
+        return self.name

@@ -4,8 +4,7 @@ from .models import *
 
 
 class DoctorSerializer(ModelSerializer):
-    # doctorname=serializers.CharField(source='name')
-    # doctorid=serializers.CharField(source='id')
+    
     class Meta:
         model=User
         fields= "__all__"
